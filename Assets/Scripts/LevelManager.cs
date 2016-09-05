@@ -12,8 +12,10 @@ public class LevelManager : MonoBehaviour {
     public Sprite[] grass;
     public Sprite[] mountain;
     public Sprite[] water;
+    public Sprite[] tree;
 
     public GameObject grassObj;
+    public GameObject treeObj;
     public GameObject mountainObj;
     public GameObject waterObj;
 
@@ -65,6 +67,11 @@ public class LevelManager : MonoBehaviour {
 
                     if (line != null)
                     {
+                        if (line.StartsWith("#"))
+                        {
+                            //Skip comments
+                            continue;
+                        }
                         level[x] = new GameObject[LEVEL_SIZE_Y];
                         foreach (char c in line)
                         {                            
@@ -95,6 +102,11 @@ public class LevelManager : MonoBehaviour {
         {
             level[x][y] = Instantiate(waterObj, currentPos, Quaternion.identity, this.gameObject.transform) as GameObject;
             level[x][y].GetComponent<SpriteRenderer>().sprite = water[random.Next(0, water.Length - 1)];
+        }
+        else if (c == 't')
+        {
+            level[x][y] = Instantiate(treeObj, currentPos, Quaternion.identity, this.gameObject.transform) as GameObject;
+            level[x][y].GetComponent<SpriteRenderer>().sprite = tree[random.Next(0, tree.Length - 1)];
         }
         else
         {

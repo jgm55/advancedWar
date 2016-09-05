@@ -124,7 +124,10 @@ MonoBehaviour:
   mountain: []
   water:
   - {fileID: 21300000, guid: 7d261148762dd114a90cbf4e0842c566, type: 3}
+  tree:
+  - {fileID: 21300000, guid: e11883c4c9f830c4cb939f8b00d33e5d, type: 3}
   grassObj: {fileID: 1000014168154036, guid: 3a9edbc1e043bdc459be1ab4aec183d9, type: 2}
+  treeObj: {fileID: 1000012450845542, guid: fa1450f7b5b8a2d4fb1a039a8e3de3c9, type: 2}
   mountainObj: {fileID: 0}
   waterObj: {fileID: 1000010194973276, guid: 7176285d185b87b4c844bd5c83bd566a, type: 2}
 --- !u!4 &199470971
