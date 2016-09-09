@@ -19,7 +19,7 @@ public class LevelManager : MonoBehaviour {
     public GameObject mountainObj;
     public GameObject waterObj;
 
-    private GameObject[][] level;
+    public GameObject[][] level;
 
     private Vector3 currentPos;
     private System.Random random;
@@ -46,11 +46,6 @@ public class LevelManager : MonoBehaviour {
         random = new System.Random();
         level = new GameObject[LEVEL_SIZE_X][];
         initMap(FILE_PATH + levelName.Replace(".txt", "") + ".txt");
-    }
-
-    // Update is called once per frame
-    void Update() {
-
     }
 
     public void initMap(string fileName)
