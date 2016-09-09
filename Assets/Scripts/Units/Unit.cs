@@ -1,25 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
-public class Unit : MonoBehaviour {
+public abstract class Unit : MonoBehaviour {
     //blade > Blunt > stab > blade
-    enum DamageType {RANGED, BLADE, BLUNT, STAB };
+    public enum DamageType {RANGED, BLADE, BLUNT, STAB };
     static float damageMultiplier = .33f;
 
-    float health;
-    string unitName;
-    int damage;
-    DamageType damageType;
+    protected float health;
+    protected string unitName;
+    protected float damage;
+    protected DamageType damageType;
+    protected int movementDistance;
+    private bool selected = false;
 
-	// Use this for initialization
-	void Start () {
-	    
-	}
-	
+    public Unit()
+    {
+
+    }
+
 	// Update is called once per frame
 	void Update () {
-	
+	    if(isDead())
+        {
+            //TODO: play death animation and sound
+            Destroy(this.gameObject);
+        }
 	}
 
     // Other Unit deals damage to this Unit.
@@ -42,6 +49,23 @@ public class Unit : MonoBehaviour {
     protected bool isDead()
     {
         return health <= 0;
+    }
+
+    public List<Vector2> getMovementSquares()
+    {
+        List<Vector2> movementSquares = new List<Vector2>();
+
+        return movementSquares;
+    }
+
+    void OnMouseDown()
+    {
+        selected = true;
+    }
+
+    void OnMouseUp()
+    {
+        selected = false;
     }
 
     //Calculates the damage unit Attacker does to Unit defender

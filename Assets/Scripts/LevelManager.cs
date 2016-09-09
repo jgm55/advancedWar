@@ -113,5 +113,7 @@ public class LevelManager : MonoBehaviour {
             throw new Exception("Error initializing tile with char: " + c);
         }
         level[x][y].GetComponent<Transform>().position = currentPos;
+        level[x][y].GetComponent<Tile>().x = x;
+        level[x][y].GetComponent<Tile>().y = y;
     }
 }
