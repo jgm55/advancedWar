@@ -9,26 +9,21 @@ using System.Text;
 public class LevelManager : MonoBehaviour {
     public string levelName;
 
-    public Sprite[] grass;
-    public Sprite[] mountain;
-    public Sprite[] water;
-    public Sprite[] tree;
-
     public GameObject grassObj;
     public GameObject treeObj;
     public GameObject mountainObj;
     public GameObject waterObj;
 
-    public GameObject[][] level;
+    public GameObject[,] level;
+
 
     private Vector3 currentPos;
     private System.Random random;
 
     private static float TILE_SIZE_X;
     private static float TILE_SIZE_Y;
-
-    private int LEVEL_SIZE_X = 10;
-    private int LEVEL_SIZE_Y = 10;
+    public int LEVEL_SIZE_X;
+    public int LEVEL_SIZE_Y; 
     private int x = 0;
     private int y = 0;
 
@@ -41,10 +36,10 @@ public class LevelManager : MonoBehaviour {
         //Assumes all tiles are same size
         TILE_SIZE_X = grassObj.GetComponent<Renderer>().bounds.size.x;
         TILE_SIZE_Y = grassObj.GetComponent<Renderer>().bounds.size.y;
-
+        LEVEL_SIZE_X = 13;
+        LEVEL_SIZE_Y = 11;
         currentPos = new Vector3(0, 0, 0);
         random = new System.Random();
-        level = new GameObject[LEVEL_SIZE_X][];
         initMap(FILE_PATH + levelName.Replace(".txt", "") + ".txt");
     }
 
@@ -52,6 +47,8 @@ public class LevelManager : MonoBehaviour {
     {
         try
         {
+            //TODO Read in header
+            level = new GameObject[LEVEL_SIZE_X, LEVEL_SIZE_Y];
             string line;
             StreamReader reader = new StreamReader(fileName, Encoding.Default);
             using (reader)
@@ -67,13 +64,16 @@ public class LevelManager : MonoBehaviour {
                             //Skip comments
                             continue;
                         }
-                        level[x] = new GameObject[LEVEL_SIZE_Y];
+
                         foreach (char c in line)
                         {                            
                             initTile(c);
                             currentPos = new Vector3(currentPos.x + TILE_SIZE_X, currentPos.y);
+                            x++;
 
                         }
+                        x = 0;
+                        y++;
                         currentPos = new Vector3(0, currentPos.y + TILE_SIZE_Y);
                     }
                 }
@@ -90,25 +90,26 @@ public class LevelManager : MonoBehaviour {
     {
         if (c == 'g')
         {            
-            level[x][y] = Instantiate(grassObj, currentPos, Quaternion.identity, this.gameObject.transform) as GameObject;
-            level[x][y].GetComponent<SpriteRenderer>().sprite = grass[random.Next(0, grass.Length - 1)];
+            level[x, y] = Instantiate(grassObj, currentPos, Quaternion.identity, this.gameObject.transform) as GameObject;
         }
         else if (c == 'w')
         {
-            level[x][y] = Instantiate(waterObj, currentPos, Quaternion.identity, this.gameObject.transform) as GameObject;
-            level[x][y].GetComponent<SpriteRenderer>().sprite = water[random.Next(0, water.Length - 1)];
+            level[x, y] = Instantiate(waterObj, currentPos, Quaternion.identity, this.gameObject.transform) as GameObject;
         }
         else if (c == 't')
         {
-            level[x][y] = Instantiate(treeObj, currentPos, Quaternion.identity, this.gameObject.transform) as GameObject;
-            level[x][y].GetComponent<SpriteRenderer>().sprite = tree[random.Next(0, tree.Length - 1)];
+            level[x, y] = Instantiate(treeObj, currentPos, Quaternion.identity, this.gameObject.transform) as GameObject;
+        }
+        else if (c == 'm')
+        {
+            level[x, y] = Instantiate(mountainObj, currentPos, Quaternion.identity, this.gameObject.transform) as GameObject;
         }
         else
         {
-            throw new Exception("Error initializing tile with char: " + c);
+            throw new Exception("Error initializing tile with char: " + c + ". Did you forget to add it to the LevelManager?");
         }
-        level[x][y].GetComponent<Transform>().position = currentPos;
-        level[x][y].GetComponent<Tile>().x = x;
-        level[x][y].GetComponent<Tile>().y = y;
+        level[x, y].GetComponent<Transform>().position = currentPos;
+        level[x, y].GetComponent<Tile>().x = x;
+        level[x, y].GetComponent<Tile>().y = y;
     }
 }

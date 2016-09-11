@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000013370506520}
   - 212: {fileID: 212000010637348168}
   - 61: {fileID: 61000014003686722}
+  - 114: {fileID: 114000010987950568}
   m_Layer: 0
   m_Name: shittySoldier
   m_TagString: Unit
@@ -55,6 +56,23 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
+--- !u!114 &114000010987950568
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010064810998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a59508cf48233cd4f89f398e33f1d4da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  unitName: 
+  damage: 0
+  damageType: 0
+  armorType: 0
+  movementDistance: 0
 --- !u!212 &212000010637348168
 SpriteRenderer:
   m_ObjectHideFlags: 1

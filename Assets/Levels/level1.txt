@@ -1,12 +1,13 @@
 # Level 1
 # By: Joe Muoio
-wwwwgggggggg
-wwwwgggggggg
-wwwgggggggtt
-wwgggggggttt
-ggggggttggtt
-gggggtttgggg
-gggggtttgggg
-ggggggtttggg
-wggggggttgtg
-wwgggggggggg
+wwwwggtggmmmm
+wwwwgggggggmm
+wwwgggggggttm
+wwgggggggtttm
+mgggggttggttt
+gggggtttggggg
+gggggtttggggg
+ggggggtttgggg
+wggggggttgtgg
+wwggggggggggm
+wwggmmggtggmm

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using Assets.Scripts;
 
 public class InputManager : MonoBehaviour
 {
@@ -7,10 +9,26 @@ public class InputManager : MonoBehaviour
     private Vector3 dragOrigin;
     private Vector3 oldPos;
 
-    public GameManager gameManager = new GameManager();
+    public GameManager gameManager;
 
     private TypeSelected selected = TypeSelected.VOID;
     private GameObject selectedObject;
+    private MoveDisplayController moveDisplayController;
+
+    void Start()
+    {
+        moveDisplayController = GameObject.FindObjectOfType<MoveDisplayController>();
+        if (moveDisplayController == null)
+        {
+            throw new Exception("OMG! MoveDisplayController CANNOT BE FOUND!!");
+        }
+
+        gameManager = GameObject.FindObjectOfType<GameManager>();
+        if (gameManager == null)
+        {
+            throw new Exception("OMG! GameManager CANNOT BE FOUND!!");
+        }
+    }
 
     void Update()
     {
@@ -18,11 +36,21 @@ public class InputManager : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray);
-            if (hit.collider != null)
+            //Check is hit and is not a tile.
+            if (hit.collider != null && hit.collider.gameObject.GetComponent<Tile>() == null)
             {
                 if(hit.collider.gameObject.tag == Constants.UNIT_TAG)
                 {
                     selected = TypeSelected.UNIT;
+                    gameManager.setSelected(hit.collider.gameObject);
+                    GameObject tile = InputHelper.getObjectInLayerAtPoint(MapLayer.TILE, Input.mousePosition);
+                    if (tile == null)
+                    {
+                        Debug.Log("TERRIBLE NO TILE BENEATH UNIT");
+                    } else {
+                        Debug.Log(hit.collider.gameObject.GetComponent<Unit>());
+                        moveDisplayController.displayMovesFor(hit.collider.gameObject.GetComponent<Unit>(), tile.GetComponent<Tile>());
+                    }
                 }
                 selectedObject = hit.collider.gameObject;
                 return;
@@ -45,29 +73,24 @@ public class InputManager : MonoBehaviour
         {
             if (selected == TypeSelected.UNIT)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit2D[] hits = Physics2D.GetRayIntersectionAll(ray);
-                foreach (RaycastHit2D hit in hits)
+                GameObject topLayer = InputHelper.getObjectInLayerAtPoint(MapLayer.ANY, Input.mousePosition);
+                if (topLayer != null)
                 {
-                    Unit selectedUnit = selectedObject.GetComponent<Unit>();
-                    if (hit.collider.gameObject.tag == Constants.UNIT_TAG)
+                    if (topLayer.GetComponent<Unit>() != null)
                     {
-                        if(gameManager.FightUnit(selectedUnit, hit.collider.gameObject.GetComponent<Unit>()))
+                        Unit selectedUnit = selectedObject.GetComponent<Unit>();
+                        if (gameManager.FightUnit(selectedUnit, topLayer.GetComponent<Unit>()))
                         {
-                            //Show Animation
-                        } else
-                        {
-                            // Error
+                            //display fight Anim
                         }
-                    } else if (hit.collider.gameObject.tag == Constants.TILE_TAG)
-                    {
-                        if(gameManager.MoveUnit(selectedUnit, hit.collider.gameObject.GetComponent<Tile>())) {
-                            //Show Animation
-                        } else
+                        else
                         {
-                            //Error
+                            //Error state handle
+                            Debug.Log("Undoing select unit");
+                            moveDisplayController.hideMovesFor(selectedUnit,
+                                InputHelper.getObjectInLayerAtPoint(MapLayer.TILE, selectedUnit.transform.position).GetComponent<Tile>());
                         }
-                    }//TODO: Buidlings
+                    }
                 }
             } else if (selected == TypeSelected.BUILDING)
             {

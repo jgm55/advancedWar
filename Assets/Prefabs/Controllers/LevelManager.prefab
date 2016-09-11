@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1000011106088314}
+  m_IsPrefabParent: 1
+--- !u!1 &1000011106088314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000013752979618}
+  - 114: {fileID: 114000011354222942}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4000013752979618
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011106088314}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &114000011354222942
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011106088314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9464026dd7635e4ea5650b60838ad1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelName: level1
+  grass:
+  - {fileID: 21300000, guid: 0a6022b6ea3cf2542bce0f7438e04ea8, type: 3}
+  - {fileID: 21300000, guid: 611e0d65e2b9c8c41b70356a241160fc, type: 3}
+  mountain: []
+  water:
+  - {fileID: 21300000, guid: 7d261148762dd114a90cbf4e0842c566, type: 3}
+  tree:
+  - {fileID: 21300000, guid: e11883c4c9f830c4cb939f8b00d33e5d, type: 3}
+  grassObj: {fileID: 1000014168154036, guid: 3a9edbc1e043bdc459be1ab4aec183d9, type: 2}
+  treeObj: {fileID: 1000012450845542, guid: fa1450f7b5b8a2d4fb1a039a8e3de3c9, type: 2}
+  mountainObj: {fileID: 1000011788653860, guid: 091dbf434fed07a4ab9de8b3d3ecdcf2,
+    type: 2}
+  waterObj: {fileID: 1000010194973276, guid: 7176285d185b87b4c844bd5c83bd566a, type: 2}
